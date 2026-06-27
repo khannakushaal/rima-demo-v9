@@ -59,9 +59,6 @@ img{display:block;}
   .viewtoggle{margin:6px auto 5px; padding:4px;}
   .viewtoggle .vt{padding:8px 12px; font-size:12px;}
   .viewtoggle .vt svg{width:15px; height:15px;}
-  .view-mobile.active{justify-content:flex-start; align-items:stretch; overflow:hidden;}
-  .phone{width:100%; height:100%; max-width:none; border-radius:0; box-shadow:none; transform:none !important;}
-  .notch{display:none;}
   .view-admin{padding:0 6px;}
   .adminwrap{width:100%;}
   .browser{border-radius:0;}
@@ -525,6 +522,19 @@ textarea.inp{height:84px; padding-top:13px; resize:none;}
   .admin .side{display:none !important;}
   .amobnav{display:block; margin-bottom:18px;}
   .admin .main{padding:16px 14px;}
+}
+
+/* admin: mobile responsiveness (no horizontal overflow) */
+@media (max-width:620px){
+  .admin .main{min-width:0;}
+  .browser, .admin, .admin .main, .panel, .apanel{overflow-x:hidden;}
+  .amobnav select{box-sizing:border-box; max-width:100%;}
+  .modrow{flex-wrap:wrap; align-items:flex-start; row-gap:8px; column-gap:10px;}
+  .modrow .mb{flex:1 1 55%; min-width:0;}
+  .modrow .tagr{order:2; align-self:center; white-space:nowrap;}
+  .modrow .mbtns{order:3; flex:1 1 100%; margin-top:2px; flex-wrap:wrap; gap:8px;}
+  .modrow .mbtns button{flex:1 1 auto; min-width:80px;}
+  .atable{display:block; overflow-x:auto; -webkit-overflow-scrolling:touch;}
 }
 </style>
 </head>
@@ -1917,9 +1927,9 @@ function fitStage(){
   const view=document.getElementById('view-mobile');
   const phone=view ? view.querySelector('.phone') : null;
   if(!phone || !view.classList.contains('active')) return;
-  if(window.innerWidth<=640){ phone.style.transform='none'; return; }
   const availH=view.clientHeight-8, availW=view.clientWidth-8;
-  const s=Math.max(0.4, Math.min(1.6, availH/848, availW/400));
+  /* 390x844 layout + ~28px bezel rings per axis: fit the WHOLE framed phone, any screen */
+  const s=Math.max(0.3, Math.min(1.6, availH/872, availW/420));
   phone.style.transform='scale('+s+')';
   phone.style.transformOrigin='center center';
 }
