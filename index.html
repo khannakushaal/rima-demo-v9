@@ -1936,7 +1936,7 @@ function fitStage(){
   const availH=Math.max(40, rect.height-6);
   /* phone box 390x844 + ~24px bezel per axis; fill, then shrink a touch so the frame shows */
   var s=Math.min(availH/868, availW/416);
-  s=Math.max(0.3, Math.min(1.7, s*0.93));
+  s=Math.max(0.3, Math.min(1.7, s*0.98));
   phone.style.transform='scale('+s+')';
   phone.style.transformOrigin='center center';
 }
