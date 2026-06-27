@@ -30,7 +30,7 @@ body{font-family:'Nunito Sans',system-ui,sans-serif; color:var(--ink);
   background:radial-gradient(1200px 600px at 12% -5%, #F7ECEC 0%, transparent 55%),
     radial-gradient(1000px 700px at 100% 0%, #ECE6F6 0%, transparent 50%),
     linear-gradient(160deg, var(--bg1), var(--bg2));
-  height:100vh; height:100dvh; overflow:hidden; display:flex; flex-direction:column; align-items:center; padding:14px 12px 0;}
+  height:100vh; height:100dvh; height:var(--app-h,100dvh); overflow:hidden; display:flex; flex-direction:column; align-items:center; padding:14px 12px 0;}
 h1,h2,h3,.brandfont{font-family:'Quicksand',sans-serif;}
 button{font-family:inherit; cursor:pointer; border:none; background:none; color:inherit;}
 button:focus-visible,[tabindex]:focus-visible{outline:3px solid var(--lav); outline-offset:2px; border-radius:8px;}
@@ -1924,14 +1924,18 @@ function cycleArea(el){ areaI=(areaI+1)%AREAS.length; document.getElementById('m
 
 /* fit the phone to the viewport so the whole device is visible without page scroll */
 function fitStage(){
+  /* lock layout to the REAL visible viewport (mobile browser bars change this) */
+  var vv = window.visualViewport;
+  var vh = vv ? vv.height : window.innerHeight;
+  document.documentElement.style.setProperty('--app-h', vh + 'px');
   const view=document.getElementById('view-mobile');
   const phone=view ? view.querySelector('.phone') : null;
   if(!phone || !view.classList.contains('active')) return;
-  const rect=view.getBoundingClientRect();
+  const rect=view.getBoundingClientRect();          /* read AFTER setting height -> reflects visible area */
   const availW=Math.max(40, rect.width-6);
   const availH=Math.max(40, rect.height-6);
-  /* phone box 390x844 + ~26px bezel per axis; scale the whole framed device to fill the space */
-  const s=Math.max(0.3, Math.min(1.7, availH/862, availW/414));
+  /* phone box 390x844 + ~24px bezel per axis; fill the available space */
+  const s=Math.max(0.3, Math.min(1.9, availH/860, availW/412));
   phone.style.transform='scale('+s+')';
   phone.style.transformOrigin='center center';
 }
