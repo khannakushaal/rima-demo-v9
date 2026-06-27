@@ -67,7 +67,7 @@ img{display:block;}
   .viewtoggle .vt{padding:8px 11px;}
 }
 @media (max-width:480px){ .viewtoggle .vt{padding:10px 14px; font-size:13px;} }
-.phone{width:390px; max-width:100%; height:844px; background:var(--surface); border-radius:46px;
+.phone{width:390px; height:844px; background:var(--surface); border-radius:46px;
   box-shadow:var(--shadow-lg),0 0 0 11px #1d1b29,0 0 0 13px #34313f; position:relative; overflow:hidden; isolation:isolate;}
 .notch{position:absolute; top:0; left:50%; transform:translateX(-50%); width:128px; height:30px; background:#1d1b29;
   border-bottom-left-radius:18px; border-bottom-right-radius:18px; z-index:60;}
@@ -1927,14 +1927,17 @@ function fitStage(){
   const view=document.getElementById('view-mobile');
   const phone=view ? view.querySelector('.phone') : null;
   if(!phone || !view.classList.contains('active')) return;
-  const availH=view.clientHeight-8, availW=view.clientWidth-8;
-  /* 390x844 layout + ~28px bezel rings per axis: fit the WHOLE framed phone, any screen */
-  const s=Math.max(0.3, Math.min(1.6, availH/872, availW/420));
+  const rect=view.getBoundingClientRect();
+  const availW=Math.max(40, rect.width-6);
+  const availH=Math.max(40, rect.height-6);
+  /* phone box 390x844 + ~26px bezel per axis; scale the whole framed device to fill the space */
+  const s=Math.max(0.3, Math.min(1.7, availH/862, availW/414));
   phone.style.transform='scale('+s+')';
   phone.style.transformOrigin='center center';
 }
 window.addEventListener('resize', fitStage);
 window.addEventListener('orientationchange', fitStage);
+if(window.visualViewport){ visualViewport.addEventListener('resize', fitStage); visualViewport.addEventListener('scroll', fitStage); }
 
 /* init */
 go('s-welcome');
@@ -1942,6 +1945,7 @@ wireExtras();
 applyFaces();
 fitStage();
 window.addEventListener('load', fitStage);
+setTimeout(fitStage,200); setTimeout(fitStage,500); setTimeout(fitStage,1000);
 
 /* ===== Activity logging -> Google Sheet (Apps Script Web App) =====
    1) Open your Google Sheet > Extensions > Apps Script, paste logger.gs, deploy as Web app.
