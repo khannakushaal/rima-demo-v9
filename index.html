@@ -574,7 +574,7 @@ textarea.inp{height:84px; padding-top:13px; resize:none;}
     <!-- ===== M1: WELCOME / AUTH ===== -->
     <section class="screen active" id="s-welcome">
       <div class="welcome">
-        <div style="flex:0 0 61%"></div>
+        <div style="flex:0 0 63%"></div>
         <div class="authstack" style="position:relative; z-index:2; gap:8px; padding-top:6px; background:linear-gradient(180deg, transparent, rgba(248,232,237,.0));">
           <button class="btn" style="background:var(--sage-deep); color:#fff; box-shadow:0 8px 20px rgba(90,169,138,.32)" onclick="go('s-otp')" aria-label="Continue with Facebook"><span style="width:24px;height:24px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center"><svg width="14" height="14" viewBox="0 0 24 24" fill="var(--sage-deep)"><path d="M24 12c0-6.6-5.4-12-12-12S0 5.4 0 12c0 6 4.4 11 10.1 11.9v-8.4H7.1V12h3V9.4c0-3 1.8-4.6 4.5-4.6 1.3 0 2.7.2 2.7.2v2.9h-1.5c-1.5 0-2 .9-2 1.9V12h3.3l-.5 3.5h-2.8v8.4C19.6 23 24 18 24 12z"/></svg></span>Continue with Facebook</button>
           <button class="btn btn-light" onclick="go('s-otp')" aria-label="Continue with Google"><svg width="18" height="18" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.5 12.2c0-.7-.1-1.4-.2-2H12v3.8h5.9c-.3 1.4-1 2.5-2.2 3.3v2.8h3.6c2.1-1.9 3.2-4.8 3.2-7.9z"/><path fill="#34A853" d="M12 23c2.9 0 5.4-1 7.2-2.6l-3.6-2.8c-1 .7-2.3 1.1-3.6 1.1-2.8 0-5.1-1.9-6-4.4H2.3v2.9C4.1 20.6 7.8 23 12 23z"/><path fill="#FBBC05" d="M6 14.3c-.2-.7-.4-1.4-.4-2.3s.1-1.6.4-2.3V6.8H2.3C1.5 8.3 1 10.1 1 12s.5 3.7 1.3 5.2L6 14.3z"/><path fill="#EA4335" d="M12 5.4c1.6 0 3 .5 4.1 1.6l3.1-3.1C17.4 2.1 14.9 1 12 1 7.8 1 4.1 3.4 2.3 6.8L6 9.7c.9-2.5 3.2-4.3 6-4.3z"/></svg>Continue with Google</button>
@@ -1934,9 +1934,9 @@ function fitStage(){
   const rect=view.getBoundingClientRect();
   const availW=Math.max(40, rect.width-6);
   const availH=Math.max(40, rect.height-6);
-  /* phone box 390x844 + ~24px bezel per axis; fill, then shrink a touch so the frame shows */
-  var s=Math.min(availH/868, availW/416);
-  s=Math.max(0.3, Math.min(1.7, s*0.93));
+  /* phone box 390x894 + ~26px bezel per axis; fill the visible area minus a small margin */
+  var s=Math.min((availH-14)/920, (availW-14)/416);
+  s=Math.max(0.3, Math.min(1.7, s));
   phone.style.transform='scale('+s+')';
   phone.style.transformOrigin='center center';
 }
