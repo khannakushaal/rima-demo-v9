@@ -67,7 +67,7 @@ img{display:block;}
   .viewtoggle .vt{padding:8px 11px;}
 }
 @media (max-width:480px){ .viewtoggle .vt{padding:10px 14px; font-size:13px;} }
-.phone{width:390px; height:894px; background:var(--surface); border-radius:46px;
+.phone{width:390px; height:930px; background:var(--surface); border-radius:46px;
   box-shadow:var(--shadow-lg),0 0 0 11px #1d1b29,0 0 0 13px #34313f; position:relative; overflow:hidden; isolation:isolate;}
 .notch{position:absolute; top:0; left:50%; transform:translateX(-50%); width:128px; height:30px; background:#1d1b29;
   border-bottom-left-radius:18px; border-bottom-right-radius:18px; z-index:60;}
@@ -1935,9 +1935,9 @@ function fitStage(){
   const rect=view.getBoundingClientRect();
   const availW=Math.max(40, rect.width-6);
   const availH=Math.max(40, rect.height-6);
-  /* phone box 390x894 + ~26px bezel per axis; phones fill a touch more so the frame extends lower */
+  /* phone box 390x930 + ~26px bezel per axis; fully fit so the bottom (Log in) is visible */
   var isPhone = window.innerWidth<=640 || document.body.classList.contains('is-phone');
-  var s=Math.min(availH/(isPhone?892:910), availW/(isPhone?402:410));
+  var s=Math.min(availH/(isPhone?962:945), availW/(isPhone?402:410));
   s=Math.max(0.3, Math.min(2.5, s));
   phone.style.transform='scale('+s+')';
   phone.style.transformOrigin='center center';
