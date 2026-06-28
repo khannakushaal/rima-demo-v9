@@ -59,11 +59,6 @@ img{display:block;}
   .viewtoggle{margin:5px auto 4px; padding:4px;}
   .viewtoggle .vt{padding:8px 12px; font-size:12px;}
   .viewtoggle .vt svg{width:15px; height:15px;}
-  .view-mobile.active{justify-content:flex-start; align-items:stretch; overflow:hidden;}
-  .phone{width:100%; height:100%; max-width:none; border-radius:0; box-shadow:none; transform:none !important;}
-  .notch{display:none;}
-  #s-welcome .welcome{justify-content:flex-end;}
-  #s-welcome .wspacer{flex:1 1 auto !important;}
   .view-admin{padding:0 6px;}
   .adminwrap{width:100%;}
   .browser{border-radius:0;}
@@ -542,14 +537,6 @@ textarea.inp{height:84px; padding-top:13px; resize:none;}
   .atable{display:block; overflow-x:auto; -webkit-overflow-scrolling:touch;}
 }
 
-/* full-screen app on REAL phones (covers Request-Desktop / wide-viewport cases) */
-body.is-phone{padding:0 !important;}
-body.is-phone .viewtoggle{margin:5px auto 4px !important;}
-body.is-phone .view-mobile.active{justify-content:flex-start; align-items:stretch; overflow:hidden;}
-body.is-phone .phone{width:100% !important; height:100% !important; max-width:none !important; border-radius:0 !important; box-shadow:none !important; transform:none !important;}
-body.is-phone .notch{display:none !important;}
-body.is-phone #s-welcome .welcome{justify-content:flex-end;}
-body.is-phone #s-welcome .wspacer{flex:1 1 auto !important;}
 </style>
 </head>
 <body>
@@ -1945,7 +1932,6 @@ function fitStage(){
   const view=document.getElementById('view-mobile');
   const phone=view ? view.querySelector('.phone') : null;
   if(!phone || !view.classList.contains('active')) return;
-  if(window.innerWidth<=640 || document.body.classList.contains('is-phone')){ phone.style.transform='none'; return; } /* phones: full-screen app, no frame */
   const rect=view.getBoundingClientRect();
   const availW=Math.max(40, rect.width-6);
   const availH=Math.max(40, rect.height-6);
